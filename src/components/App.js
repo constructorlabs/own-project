@@ -6,14 +6,25 @@ import Flights from "./Flights";
 class App extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      flights: [],
+      currency: ""
+    };
+
+    this.receiver = this.receiver.bind(this);
+  }
+
+  receiver(data) {
+    this.setState({ flights: data.results, currency: data.currency });
   }
 
   render() {
     return (
       <div>
         <Header />
-        <Search />
-        <Flights />
+        <Search receiver={this.receiver} />
+        <Flights flights={this.state.flights} currency={this.state.currency} />
       </div>
     );
   }
