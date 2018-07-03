@@ -1,16 +1,21 @@
-import React from 'react';
+import React from "react";
+import Header from "./Header";
+import Search from "./Search";
+import Flights from "./Flights";
 
 class App extends React.Component {
-  constructor(){
+  constructor() {
     super();
   }
 
-  render(){
+  render() {
     return (
       <div>
-        React app goes here
+        <Header />
+        <Search />
+        <Flights />
       </div>
-    )
+    );
   }
 }
 
