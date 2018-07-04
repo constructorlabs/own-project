@@ -15,7 +15,7 @@ class Menu extends React.Component {
   componentDidMount(){
 
     fetch(
-      `http://localhost:8080/api/all`
+      `/api/all`
     )
       .then(response => (response.json()))
       .then(data =>this.setState({all:data}))
