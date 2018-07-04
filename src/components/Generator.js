@@ -83,7 +83,7 @@ class Generator extends React.Component {
 
 
     //// update api
-    fetch("/api/save", {
+    fetch("http://localhost:8080/api/save", {
       method: "post",
       body: JSON.stringify({ arr: all }),
       headers: {
