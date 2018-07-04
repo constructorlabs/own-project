@@ -102,7 +102,7 @@ class Generator extends React.Component {
     return (
       <div>
         <button className="button" onClick={this.generatePairs}  >
-        <img className="buttonImg" src="https://image.freepik.com/free-icon/play-button-arrowhead_318-43739.jpg" />
+        <img className="buttonImg" src="./static/images/play.jpg" />
         </button>
 
       <div>
