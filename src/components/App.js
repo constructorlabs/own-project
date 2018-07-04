@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from "./Header";
+import Menu from "./Menu";
 
 class App extends React.Component {
   constructor(){
@@ -8,7 +10,8 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        React app goes here
+        <Header />
+        <Menu />
       </div>
     )
   }
