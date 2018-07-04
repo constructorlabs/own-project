@@ -9,22 +9,33 @@ class App extends React.Component {
 
     this.state = {
       flights: [],
-      currency: ""
+      currency: "",
+      loading: false
     };
 
     this.receiver = this.receiver.bind(this);
+    this.onAPILoading = this.onAPILoading.bind(this);
   }
 
   receiver(data) {
-    this.setState({ flights: data.results, currency: data.currency });
+    this.setState({
+      loading: false,
+      flights: data.results,
+      currency: data.currency
+    });
+  }
+
+  onAPILoading() {
+    this.setState({ loading: true });
   }
 
   render() {
     return (
-      <div>
+      <div className="app">
         <Header />
-        <Search receiver={this.receiver} />
+        <Search receiver={this.receiver} onAPILoading={this.onAPILoading} />
         <Flights flights={this.state.flights} currency={this.state.currency} />
+        {this.state.loading ? <p className="modal">loading</p> : null}
       </div>
     );
   }

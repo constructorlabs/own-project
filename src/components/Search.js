@@ -22,7 +22,8 @@ class Search extends React.Component {
         children: "",
         max_price: "",
         currency: ""
-      }
+      },
+      loading: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -234,20 +235,31 @@ class Search extends React.Component {
     return formValid;
   }
 
+  getURL() {
+    // Produces "&origin=${origin}&destination=${destination}&departure_date=${departure_date}..."
+    const keys = [
+      "origin",
+      "departure_date",
+      "destination",
+      "return_date",
+      "adults",
+      "max_price",
+      "currency"
+    ];
+    const query = keys.reduce((acc, key) => {
+      return acc + `&${key}=${this.state[key]}`;
+    }, "");
+    // return `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=yCrg1AtzcO3WOHM31Sq1Qd3iuOsiCSbR&origin=${origin}&destination=${destination}&departure_date=${departure_date}&return_date=${return_date}&adults=${adults}&max_price=${max_price}&currency=${currency}`;
+    return `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=yCrg1AtzcO3WOHM31Sq1Qd3iuOsiCSbR${query}`;
+  }
+
   handelSubmit(event) {
     event.preventDefault();
     if (this.validate()) {
-      fetch(
-        `https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=yCrg1AtzcO3WOHM31Sq1Qd3iuOsiCSbR&origin=${
-          this.state.origin
-        }&destination=${this.state.destination}&departure_date=${
-          this.state.departure_date
-        }&return_date=${this.state.return_date}&adults=${
-          this.state.adults
-        }&max_price=${this.state.max_price}&currency=${this.state.currency}`
-      )
+      this.props.onAPILoading();
+      fetch(this.getURL())
         .then(function(response) {
-          return response.json();
+          return response.ok ? response.json() : Promise.reject(response);
         })
         .then(data => {
           if (data.results) {
