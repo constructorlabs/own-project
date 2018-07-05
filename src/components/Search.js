@@ -5,14 +5,14 @@ class Search extends React.Component {
     super(props);
 
     this.state = {
-      origin: "BWI",
-      destination: "NYC",
-      departure_date: "2018-09-01",
-      return_date: "2018-09-10",
-      adults: "1",
-      children: "0",
-      max_price: "1500",
-      currency: "USD",
+      origin: "",
+      destination: "",
+      departure_date: "",
+      return_date: "",
+      adults: "",
+      children: "",
+      max_price: "",
+      currency: "",
       number_of_results: "20",
       errors: {
         origin: "",
