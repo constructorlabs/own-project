@@ -8,9 +8,9 @@ function Flights({ flights, currency }) {
     <div className="container">
       <ul>
         {flights.map((result, index) => {
-          console.log(result.itineraries[0].outbound);
-          console.log(result.itineraries[0].inbound);
-          console.log(result.fare.total_price);
+          // console.log(result.itineraries[0].outbound);
+          // console.log(result.itineraries[0].inbound);
+          // console.log(result.fare.total_price);
           return (
             <div className="item" key={index}>
               <div className="item__wrap">
