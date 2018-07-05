@@ -24578,7 +24578,7 @@ var Generator = function (_React$Component) {
       this.setState({ pairs: results });
 
       //// update api
-      fetch("http://localhost:8080/api/save", {
+      fetch("/api/save", {
         method: "post",
         body: JSON.stringify({ arr: all }),
         headers: {
@@ -24688,7 +24688,7 @@ function Header() {
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: "/generator" },
-          "Generator"
+          "Start"
         )
       ),
       _react2.default.createElement(
@@ -24918,7 +24918,7 @@ var Menu = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch("http://localhost:8080/api/all").then(function (response) {
+      fetch("/api/all").then(function (response) {
         return response.json();
       }).then(function (data) {
         return _this2.setState({ all: data });

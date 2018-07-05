@@ -15,7 +15,7 @@ function Header(){
               <Link to="/">Home</Link>
             </li>
             <li className="headerList">
-              <Link to="/generator">Generator</Link>
+              <Link to="/generator">Start</Link>
             </li>
             <li className="headerList">
               <Link to="/history">History</Link>
