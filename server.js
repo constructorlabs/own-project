@@ -6,6 +6,8 @@ app.use(bodyParser.json());
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs');
 //////////////////////////////////////////////////
+function outerPairs ()
+{
 let all = [
   {name: "ahmed", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:2, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
   {name: "alex", counters:{ahmed:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
@@ -25,17 +27,31 @@ let all = [
   {name: "sheila", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, ahmed:1}}
 ];
 
+const innerPairs ={
+  load(){
+    return all;
+  },
+  save(newArr){
+    all=newArr;
+    return all;
+  }
+
+}
+return innerPairs;
+
+}
+
 //////////////////////////////////////////////////
 
-
+const pairs=outerPairs();
 
 app.get('/api/all', function(req,res){
-  res.json(all);
+  res.json(pairs.load());
 })
 
 app.post('/api/save', function(req,res){
-  all = req.body.arr
-  res.json(req.body);
+
+  res.json(pairs.save(req.body.arr));
 })
 
 
