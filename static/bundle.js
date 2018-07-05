@@ -24819,6 +24819,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24842,7 +24844,11 @@ var Home = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement("img", { src: "./static/images/start.gif", className: "homeImg" })
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: "/generator" },
+          _react2.default.createElement("img", { src: "./static/images/start.gif", className: "homeImg" })
+        )
       );
     }
   }]);
