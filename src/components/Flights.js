@@ -14,18 +14,11 @@ function Flights({ flights, currency }) {
           return (
             <div className="item" key={index}>
               <div className="item__wrap">
-                <iframe
+                <img
                   className="item__photo"
-                  src="https://www.youtube.com/embed/PAtu5ja1u70?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                />
-                {/* <img //optional use of picture instead of a video iframe
-                  className="item__photo"
-                  src="./static/holidays.jpeg"
+                  src="https://media1.tenor.com/images/44927216f95e80df438af6dcae6fc4c2/tenor.gif?itemid=4252193"
                   alt="holidays"
-                /> */}
+                />
                 <div className="item__content">
                   <h2 className="list__bold">🛫 Holidays</h2>
 
@@ -68,19 +61,11 @@ function Flights({ flights, currency }) {
               </div>
 
               <div className="item__wrap">
-                <iframe
+                <img
                   className="item__photo"
-                  src="https://www.youtube.com/embed/KbN7eGL61sU?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                />
-
-                {/* <img //optional use of picture instead of a video iframe
-                  className="item__photo"
-                  src="./static/coming-back-home.jpeg"
+                  src="https://media1.tenor.com/images/6f562438967451a19f398069fd8aac29/tenor.gif?itemid=5800644"
                   alt="coming-home"
-                /> */}
+                />
                 <div className="item__content">
                   <h2 className="list__bold">🛬 Coming back home</h2>
                   <li className="list">
