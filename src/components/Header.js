@@ -1,4 +1,5 @@
 import React from "react";
+// import logo from "/static/logo.png";
 
 class Header extends React.Component {
   constructor() {
@@ -8,6 +9,7 @@ class Header extends React.Component {
   render() {
     return (
       <header className="header">
+        <img className="logo" src="./static/logo.png" />
         <h1 className="title">
           <i>high</i>
           <i>fligher</i>

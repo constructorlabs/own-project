@@ -5,14 +5,15 @@ class Search extends React.Component {
     super(props);
 
     this.state = {
-      origin: "BOS",
-      destination: "LON",
-      departure_date: "2018-08-01",
-      return_date: "2018-08-10",
+      origin: "BWI",
+      destination: "NYC",
+      departure_date: "2018-09-01",
+      return_date: "2018-09-10",
       adults: "1",
       children: "0",
-      max_price: "1000",
+      max_price: "1500",
       currency: "USD",
+      number_of_results: "20",
       errors: {
         origin: "",
         destination: "",
@@ -43,25 +44,9 @@ class Search extends React.Component {
     return string.length === 10;
   }
 
-  // isNumber() {
-  //   let { max_price, children, adults } = this.state;
-  //   let x = this.state;
-
-  //   if (isNaN(x)) {
-  //     alert("Must input numbers only");
-  //     return false;
-  //   }
-  // }
-
   isNumber(input) {
     return !isNaN(input) && input.length;
   }
-
-  // isNumber(input) {
-  //   if (typeof input === "number") {
-  //     return input;
-  //   }
-  // }
 
   validate() {
     const { origin, destination, currency } = this.state;
@@ -244,7 +229,8 @@ class Search extends React.Component {
       "return_date",
       "adults",
       "max_price",
-      "currency"
+      "currency",
+      "number_of_results"
     ];
     const query = keys.reduce((acc, key) => {
       return acc + `&${key}=${this.state[key]}`;
@@ -274,12 +260,17 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <h2>Search</h2>
         <p>Please fill in all the boxes using format provided and hit search</p>
-        <form className="search" onSubmit={this.handelSubmit}>
-          <div>
+        <form className="search" onSubmit={this.handelSubmit} action="">
+          <div className="field">
+            <label className="field__label" htmlFor="origin">
+              ✈️ Origin
+            </label>
             <input
+              className="search__input"
+              id="origin"
               type="text"
               name="origin"
               placeholder="LON"
@@ -287,11 +278,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.origin ? (
-              <p>{this.state.errors.origin}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.origin}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="destination">
+              🌴 Destination
+            </label>
             <input
+              className="search__input"
+              id="destination"
               type="text"
               name="destination"
               placeholder="BOS"
@@ -299,11 +297,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.destination ? (
-              <p>{this.state.errors.destination}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.destination}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="departure_date">
+              💺 Departure
+            </label>
             <input
+              className="search__input"
+              id="departure_date"
               type="text"
               name="departure_date"
               placeholder="2018-07-05"
@@ -311,11 +316,20 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.departure_date ? (
-              <p>{this.state.errors.departure_date}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">
+                  {this.state.errors.departure_date}
+                </p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="return_date">
+              🚧 Return
+            </label>
             <input
+              className="search__input"
+              id="return_date"
               type="text"
               name="return_date"
               placeholder="2018-07-10"
@@ -323,11 +337,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.return_date ? (
-              <p>{this.state.errors.return_date}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.return_date}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="adults">
+              🍻 Adults
+            </label>
             <input
+              className="search__input"
+              id="adults"
               type="text"
               name="adults"
               placeholder="Number of adults"
@@ -335,11 +356,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.adults ? (
-              <p>{this.state.errors.adults}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.adults}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="children">
+              🍦 Children
+            </label>
             <input
+              className="search__input"
+              id="children"
               type="text"
               name="children"
               placeholder="Number of children"
@@ -347,11 +375,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.children ? (
-              <p>{this.state.errors.children}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.children}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="max_price">
+              💷 Max price
+            </label>
             <input
+              className="search__input"
+              id="max_price"
               type="text"
               name="max_price"
               placeholder="Max Price"
@@ -359,11 +394,18 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.max_price ? (
-              <p>{this.state.errors.max_price}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.max_price}</p>
+              </div>
             ) : null}
           </div>
-          <div>
+          <div className="field">
+            <label className="field__label" htmlFor="currency">
+              ￡ Currency
+            </label>
             <input
+              className="search__input"
+              id="currency"
               type="text"
               name="currency"
               placeholder="USD"
@@ -371,10 +413,12 @@ class Search extends React.Component {
               onChange={this.handleChange}
             />
             {this.state.errors.currency ? (
-              <p>{this.state.errors.currency}</p>
+              <div className="tooltip">
+                <p className="tooltiptext">{this.state.errors.currency}</p>
+              </div>
             ) : null}
           </div>
-          <button type="submit">Search</button>
+          <button className="search__submitbtn">Search</button>
         </form>
       </div>
     );

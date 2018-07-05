@@ -35,7 +35,13 @@ class App extends React.Component {
         <Header />
         <Search receiver={this.receiver} onAPILoading={this.onAPILoading} />
         <Flights flights={this.state.flights} currency={this.state.currency} />
-        {this.state.loading ? <p className="modal">loading</p> : null}
+        {this.state.loading ? (
+          <div className="loader">
+            <h1 className="modal">
+              Go and grab a coffee as this API is annoyingly slow 😤
+            </h1>
+          </div>
+        ) : null}
       </div>
     );
   }
