@@ -90,12 +90,12 @@ flex-wrap: wrap;
       font-size: 20px;
       
       color: hsl(220, 80%, 50%);
-      width: 100px;
-      height: 30px;
+      width: 150px;
+      height: 100px;
       margin-top: calc(50vh - 75px);
       margin-left: calc(50vw - 175px);
     
-      border-radius: 30px;
+      border-radius: 20px;
       text-shadow: 
         0px 5px hsl(220, 80%, 30%), 
         0px 10px 10px #0003;
@@ -122,9 +122,9 @@ flex-wrap: wrap;
     }
     
     .buttonImg{
-      display: block;
-      height:75% ;
-      width: 85%;
+      
+      height:65% ;
+      width: 65%;
     }
 
 }
