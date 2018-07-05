@@ -14,13 +14,20 @@ function Flights({ flights, currency }) {
           return (
             <div className="item" key={index}>
               <div className="item__wrap">
-                <img
+                <iframe
+                  className="item__photo"
+                  src="https://www.youtube.com/embed/PAtu5ja1u70?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                />
+                {/* <img //optional use of picture instead of a video iframe
                   className="item__photo"
                   src="./static/holidays.jpeg"
                   alt="holidays"
-                />
+                /> */}
                 <div className="item__content">
-                  <h2>🛫 Holidays</h2>
+                  <h2 className="list__bold">🛫 Holidays</h2>
 
                   <li className="list">
                     <p className="list__bold">Departs at: </p>
@@ -61,13 +68,21 @@ function Flights({ flights, currency }) {
               </div>
 
               <div className="item__wrap">
-                <img
+                <iframe
+                  className="item__photo"
+                  src="https://www.youtube.com/embed/KbN7eGL61sU?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                />
+
+                {/* <img //optional use of picture instead of a video iframe
                   className="item__photo"
                   src="./static/coming-back-home.jpeg"
                   alt="coming-home"
-                />
+                /> */}
                 <div className="item__content">
-                  <h2>🛬 Coming back home</h2>
+                  <h2 className="list__bold">🛬 Coming back home</h2>
                   <li className="list">
                     <p className="list__bold">Departs at: </p>
                     {format(

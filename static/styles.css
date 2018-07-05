@@ -161,11 +161,6 @@ label {
   top: 1px;
 }
 
-/* .search__submitbtn {
-  align-self: end;
-  justify-self: end;
-} */
-
 .field .tooltip {
   position: absolute;
   left: 100%;
@@ -204,18 +199,8 @@ label {
 }
 
 .field__label {
-  /* color: #528ecc; */
   color: royalblue;
 }
-
-/* .item {
-  width: auto;
-  margin-top: 50px;
-  padding: 10px;
-  background-color: hsl(220, 12%, 95%);
-  border: 0;
-  box-shadow: 0 2px 6px 0;
-} */
 
 .item {
   display: grid;
@@ -267,4 +252,11 @@ input {
   padding: 15px;
   background: rgba(255, 255, 255, 0.5);
   margin: 0 0 10px 0;
+}
+
+@media screen and(min-width: 600px) {
+  .search {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
