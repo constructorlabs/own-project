@@ -1,4 +1,5 @@
 import React from 'react';
+import NumbersOnly from './NumbersOnly';
 
 class App extends React.Component {
   constructor(){
@@ -8,7 +9,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        React app goes here
+        <NumbersOnly />
       </div>
     )
   }
