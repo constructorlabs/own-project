@@ -24440,7 +24440,8 @@ var App = function (_React$Component) {
         "div",
         null,
         _react2.default.createElement(_Header2.default, null),
-        _react2.default.createElement(_Menu2.default, null)
+        _react2.default.createElement(_Menu2.default, null),
+        _react2.default.createElement("div", { className: "footer" })
       );
     }
   }]);
@@ -24598,14 +24599,10 @@ var Generator = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement(
-          "button",
-          { className: "button", onClick: this.generatePairs },
-          _react2.default.createElement("img", { className: "buttonImg", src: "./static/images/play.jpg" })
-        ),
+        _react2.default.createElement("img", { className: "click-here", src: "./static/images/clickme.png", onClick: this.generatePairs }),
         _react2.default.createElement(
           "div",
-          null,
+          { className: "results" },
           Object.keys(this.state.pairs).map(function (key) {
             return _react2.default.createElement(
               "h2",
@@ -24672,10 +24669,10 @@ function Header() {
     ),
     _react2.default.createElement(
       "ul",
-      { className: "headerNav" },
+      { className: "header-nav" },
       _react2.default.createElement(
         "li",
-        { className: "headerList" },
+        { className: "header-nav__list" },
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: "/" },
@@ -24684,16 +24681,16 @@ function Header() {
       ),
       _react2.default.createElement(
         "li",
-        { className: "headerList" },
+        { className: "header-nav__list" },
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: "/generator" },
-          "Start"
+          "Generator"
         )
       ),
       _react2.default.createElement(
         "li",
-        { className: "headerList" },
+        { className: "header-nav__list" },
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: "/history" },
@@ -24702,11 +24699,11 @@ function Header() {
       ),
       _react2.default.createElement(
         "li",
-        { className: "headerList" },
+        { className: "header-nav__list" },
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: "/sample" },
-          "Sample"
+          { to: "/settings" },
+          "Settings"
         )
       )
     )
@@ -24759,7 +24756,7 @@ var History = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "historyContainer" },
+        { className: "history-container" },
         this.props.all.map(function (student) {
           var temp = Object.keys(student.counters).map(function (key) {
             return _react2.default.createElement(
@@ -24778,7 +24775,7 @@ var History = function (_React$Component) {
           });
           return _react2.default.createElement(
             "div",
-            { className: "historyBox", key: student.name },
+            { className: "history-container__box", key: student.name },
             _react2.default.createElement(
               "h2",
               null,
@@ -24847,7 +24844,7 @@ var Home = function (_React$Component) {
         _react2.default.createElement(
           _reactRouterDom.Link,
           { to: "/generator" },
-          _react2.default.createElement("img", { src: "./static/images/start.gif", className: "homeImg" })
+          _react2.default.createElement("img", { src: "./static/images/start.gif", className: "home-img" })
         )
       );
     }
@@ -24890,9 +24887,9 @@ var _History = __webpack_require__(/*! ./History */ "./src/components/History.js
 
 var _History2 = _interopRequireDefault(_History);
 
-var _Sample = __webpack_require__(/*! ./Sample */ "./src/components/Sample.js");
+var _Settings = __webpack_require__(/*! ./Settings */ "./src/components/Settings.js");
 
-var _Sample2 = _interopRequireDefault(_Sample);
+var _Settings2 = _interopRequireDefault(_Settings);
 
 var _Home = __webpack_require__(/*! ./Home */ "./src/components/Home.js");
 
@@ -24955,7 +24952,7 @@ var Menu = function (_React$Component) {
             return _react2.default.createElement(_History2.default, { all: _this3.state.all });
           } }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/sample", render: function render() {
-            return _react2.default.createElement(_Sample2.default, null);
+            return _react2.default.createElement(_Settings2.default, null);
           } })
       );
     }
@@ -24968,10 +24965,10 @@ exports.default = Menu;
 
 /***/ }),
 
-/***/ "./src/components/Sample.js":
-/*!**********************************!*\
-  !*** ./src/components/Sample.js ***!
-  \**********************************/
+/***/ "./src/components/Settings.js":
+/*!************************************!*\
+  !*** ./src/components/Settings.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24996,16 +24993,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Sample = function (_React$Component) {
-  _inherits(Sample, _React$Component);
+var Settings = function (_React$Component) {
+  _inherits(Settings, _React$Component);
 
-  function Sample() {
-    _classCallCheck(this, Sample);
+  function Settings() {
+    _classCallCheck(this, Settings);
 
-    return _possibleConstructorReturn(this, (Sample.__proto__ || Object.getPrototypeOf(Sample)).call(this));
+    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
   }
 
-  _createClass(Sample, [{
+  _createClass(Settings, [{
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -25020,10 +25017,10 @@ var Sample = function (_React$Component) {
     }
   }]);
 
-  return Sample;
+  return Settings;
 }(_react2.default.Component);
 
-exports.default = Sample;
+exports.default = Settings;
 
 /***/ }),
 

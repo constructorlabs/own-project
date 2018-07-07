@@ -101,11 +101,11 @@ class Generator extends React.Component {
   render() {
     return (
       <div>
-        <button className="button" onClick={this.generatePairs}  >
-        <img className="buttonImg" src="./static/images/play.jpg" />
-        </button>
+        
+        <img className="click-here" src="./static/images/clickme.png" onClick={this.generatePairs} />
+        
 
-      <div>
+      <div className="results">
       
       {Object.keys(this.state.pairs).map(key=>{
         return(

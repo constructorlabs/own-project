@@ -9,9 +9,10 @@ class App extends React.Component {
 
   render(){
     return (
-      <div>
+      <div >
         <Header />
         <Menu />
+        <div className="footer" />
       </div>
     )
   }

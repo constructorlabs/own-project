@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Generator from "./Generator";
 import History from "./History";
-import Sample from "./Sample";
+import Settings from "./Settings";
 import Home from "./Home";
 
 class Menu extends React.Component {
@@ -35,7 +35,7 @@ class Menu extends React.Component {
           <Route exact path="/" render={() => <Home  /> }/>
         <Route path="/generator" render={() => <Generator all={this.state.all} receiver={this.updateAll} /> } />
         <Route path="/history" render={() => <History all={this.state.all} /> }/>
-        <Route path="/sample" render={() => <Sample  /> }/>
+        <Route path="/sample" render={() => <Settings  /> }/>
         </Switch>
       
     );

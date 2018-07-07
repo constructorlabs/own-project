@@ -13,7 +13,7 @@ class Home extends React.Component {
     return (
       <div >
       <Link to="/generator">
-         <img src="./static/images/start.gif" className="homeImg" />
+         <img src="./static/images/start.gif" className="home-img" />
          </Link>
       </div>
     );

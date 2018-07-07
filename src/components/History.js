@@ -8,7 +8,7 @@ class History extends React.Component {
 
   render() {
     return (
-      <div className="historyContainer">
+      <div className="history-container">
         {this.props.all.map(student => {
           const temp = Object.keys(student.counters).map(key => {
             return (
@@ -19,7 +19,7 @@ class History extends React.Component {
             );
           });
           return (
-            <div className="historyBox" key={student.name}>
+            <div className="history-container__box" key={student.name}>
               <h2>{student.name} Paired with</h2>
               {temp}
             </div>

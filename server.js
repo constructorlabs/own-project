@@ -9,22 +9,40 @@ app.set('view engine', 'hbs');
 function outerPairs ()
 {
 let all = [
-  {name: "ahmed", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:2, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "alex", counters:{ahmed:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "edem", counters:{alex:1, ahmed:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "ethan", counters:{alex:1, edem:1, ahmed:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "hamza", counters:{alex:1, edem:1, ethan:1, ahmed:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "harry", counters:{alex:1, edem:1, ethan:1, hamza:1, ahmed:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "james", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, ahmed:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "jose", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, ahmed:2, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "julius", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, ahmed:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "matt", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, ahmed:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "mike", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, ahmed:1, ollie:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "ollie", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ahmed:1, phoebe:1, rafal:1, ralph:1, sheila:1}},
-  {name: "phoebe", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, ahmed:1, rafal:1, ralph:1, sheila:1}},
-  {name: "rafal", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, ahmed:1, ralph:1, sheila:1}},
-  {name: "ralph", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ahmed:1, sheila:1}},
-  {name: "sheila", counters:{alex:1, edem:1, ethan:1, hamza:1, harry:1, james:1, jose:1, julius:1, matt:1, mike:1, ollie:1, phoebe:1, rafal:1, ralph:1, ahmed:1}}
+  {name: "Ahmed", counters:{Alex:1, Edem:2, Ethan:2, Hamzah:3, Harry:2, James:1, Jose:3, Julius:3, Matt:1, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:2}},
+
+  {name: "Alex", counters:{Ahmed:1, Edem:2, Ethan:1, Hamzah:1, Harry:1, James:2, Jose:3, Julius:1, Matt:0, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:1}},
+  
+  {name: "Edem", counters:{Alex:2, Ahmed:2, Ethan:2, Hamzah:1, Harry:0, James:2, Jose:1, Julius:2, Matt:0, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:1}},
+  
+  {name: "Ethan", counters:{Alex:1, Edem:2, Ahmed:2, Hamzah:0, Harry:1, James:2, Jose:2, Julius:2, Matt:1, mike:1, Ollie:1, Phoebe:1, Rafal:1, Ralph:2, Sheila:1}},
+  
+  {name: "Hamzah", counters:{Alex:1, Edem:1, Ethan:0, Ahmed:3, Harry:1, James:2, Jose:1, Julius:1, Matt:2, mike:1, Ollie:1, Phoebe:4, Rafal:1, Ralph:1, Sheila:1}},
+  
+  {name: "Harry", counters:{Alex:1, Edem:0, Ethan:1, Hamzah:1, Ahmed:2, James:2, Jose:2, Julius:0, Matt:2, mike:1, Ollie:2, Phoebe:3, Rafal:1, Ralph:2, Sheila:0}},
+  
+  {name: "James", counters:{Alex:2, Edem:2, Ethan:2, Hamzah:2, Harry:2, Ahmed:1, Jose:2, Julius:2, Matt:1, mike:1, Ollie:1, Phoebe:2, Rafal:1, Ralph:2, Sheila:1}},
+  
+  {name: "Jose", counters:{Alex:3, Edem:1, Ethan:2, Hamzah:1, Harry:2, James:2, Ahmed:3, Julius:2, Matt:1, mike:1, Ollie:1, Phoebe:2, Rafal:1, Ralph:2, Sheila:1}},
+  
+  {name: "Julius", counters:{Alex:1, Edem:2, Ethan:2, Hamzah:1, Harry:0, James:2, Jose:2, Ahmed:3, Matt:2, mike:1, Ollie:2, Phoebe:2, Rafal:1, Ralph:1, Sheila:2}},
+  
+  {name: "Matt", counters:{Alex:0, Edem:0, Ethan:1, Hamzah:2, Harry:2, James:1, Jose:1, Julius:2, Ahmed:1, mike:2, Ollie:1, Phoebe:3, Rafal:1, Ralph:1, Sheila:2}},
+  
+  {name: "Michael", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:1, Harry:1, James:1, Jose:1, Julius:1, Matt:2, Ahmed:1, Ollie:1, Phoebe:2, Rafal:1, Ralph:1, Sheila:2}},
+  
+  {name: "Ollie", counters:{Alex:2, Edem:2, Ethan:1, Hamzah:1, Harry:2, James:1, Jose:1, Julius:2, Matt:1, mike:1, Ahmed:2, Phoebe:2, Rafal:2, Ralph:1, Sheila:1}},
+  
+  {name: "Phoebe", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:4, Harry:2, James:2, Jose:2, Julius:2, Matt:3, mike:2, Ollie:2, Ahmed:1, Rafal:1, Ralph:2, Sheila:3}},
+  
+  {name: "Rafal", counters:{Alex:3, Edem:3, Ethan:1, Hamzah:1, Harry:1, James:1, Jose:1, Julius:1, Matt:1, mike:1, Ollie:2, Phoebe:1, Ahmed:3, Ralph:0, Sheila:1}},
+  
+  {name: "Ralph", counters:{Alex:1, Edem:2, Ethan:1, Hamzah:1, Harry:2, James:2, Jose:2, Julius:1, Matt:1, mike:1, Ollie:1, Phoebe:2, Rafal:0, Ahmed:1, Sheila:2}},
+  
+  {name: "Sheila", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:1, Harry:1, James:1, Jose:1, Julius:2, Matt:2, mike:2, Ollie:1, Phoebe:3, Rafal:1, Ralph:2, Ahmed:2}}
+  
+  
+  
 ];
 
 const innerPairs ={
