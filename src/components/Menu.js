@@ -8,14 +8,15 @@ import Home from "./Home";
 class Menu extends React.Component {
   constructor() {
     super();
-    this.state={all:[]}
+    this.state={all:[], activeIndex:0}
     this.updateAll=this.updateAll.bind(this);
+    this.updateIndex=this.updateIndex.bind(this);
   }
 
   componentDidMount(){
 
     fetch(
-      `/api/all`
+      `/api/all/${this.state.activeIndex}`
     )
       .then(response => (response.json()))
       .then(data =>this.setState({all:data}))
@@ -26,6 +27,10 @@ class Menu extends React.Component {
     this.setState(all)
   }
 
+  updateIndex(all,i){
+    this.setState({all, activeIndex:i})
+  }
+
 
 
   render() {
@@ -33,9 +38,9 @@ class Menu extends React.Component {
       
         <Switch>
           <Route exact path="/" render={() => <Home  /> }/>
-        <Route path="/generator" render={() => <Generator all={this.state.all} receiver={this.updateAll} /> } />
+        <Route path="/generator" render={() => <Generator all={this.state.all} receiver={this.updateAll} index={this.state.activeIndex} /> } />
         <Route path="/history" render={() => <History all={this.state.all} /> }/>
-        <Route path="/sample" render={() => <Settings  /> }/>
+        <Route path="/settings" render={() => <Settings selectedList={this.state.all} update={this.updateIndex} /> }/>
         </Switch>
       
     );

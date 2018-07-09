@@ -86,6 +86,68 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
 /***/ "./node_modules/fbjs/lib/ExecutionEnvironment.js":
 /*!*******************************************************!*\
   !*** ./node_modules/fbjs/lib/ExecutionEnvironment.js ***!
@@ -24575,11 +24637,13 @@ var Generator = function (_React$Component) {
 
         counter = counter * -1;
       });
-      console.log(results);
+
       this.setState({ pairs: results });
 
+      console.log("index", this.props.index);
+
       //// update api
-      fetch("/api/save", {
+      fetch("/api/save/" + this.props.index, {
         method: "post",
         body: JSON.stringify({ arr: all }),
         headers: {
@@ -24587,9 +24651,7 @@ var Generator = function (_React$Component) {
         }
       }).then(function (response) {
         return response.json();
-      }).then(function (data) {
-        console.log("sucess");
-      });
+      }).then(function (data) {});
     }
   }, {
     key: "render",
@@ -24911,8 +24973,9 @@ var Menu = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this));
 
-    _this.state = { all: [] };
+    _this.state = { all: [], activeIndex: 0 };
     _this.updateAll = _this.updateAll.bind(_this);
+    _this.updateIndex = _this.updateIndex.bind(_this);
     return _this;
   }
 
@@ -24921,7 +24984,7 @@ var Menu = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch("/api/all").then(function (response) {
+      fetch("/api/all/" + this.state.activeIndex).then(function (response) {
         return response.json();
       }).then(function (data) {
         return _this2.setState({ all: data });
@@ -24935,6 +24998,11 @@ var Menu = function (_React$Component) {
       this.setState(all);
     }
   }, {
+    key: "updateIndex",
+    value: function updateIndex(all, i) {
+      this.setState({ all: all, activeIndex: i });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -24946,13 +25014,13 @@ var Menu = function (_React$Component) {
             return _react2.default.createElement(_Home2.default, null);
           } }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/generator", render: function render() {
-            return _react2.default.createElement(_Generator2.default, { all: _this3.state.all, receiver: _this3.updateAll });
+            return _react2.default.createElement(_Generator2.default, { all: _this3.state.all, receiver: _this3.updateAll, index: _this3.state.activeIndex });
           } }),
         _react2.default.createElement(_reactRouterDom.Route, { path: "/history", render: function render() {
             return _react2.default.createElement(_History2.default, { all: _this3.state.all });
           } }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: "/sample", render: function render() {
-            return _react2.default.createElement(_Settings2.default, null);
+        _react2.default.createElement(_reactRouterDom.Route, { path: "/settings", render: function render() {
+            return _react2.default.createElement(_Settings2.default, { selectedList: _this3.state.all, update: _this3.updateIndex });
           } })
       );
     }
@@ -24985,7 +25053,13 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -24999,19 +25073,242 @@ var Settings = function (_React$Component) {
   function Settings() {
     _classCallCheck(this, Settings);
 
-    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
+    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
+
+    _this.state = { value: "", name: "", ids: {}, selectedId: 0, selectedList: [], exists: false, added: false, listInfo: "", date: "" };
+    _this.changeHandler = _this.changeHandler.bind(_this);
+    _this.submitHandler = _this.submitHandler.bind(_this);
+    _this.previewHandler = _this.previewHandler.bind(_this);
+    _this.selectHandler = _this.selectHandler.bind(_this);
+    _this.nameHandler = _this.nameHandler.bind(_this);
+    return _this;
   }
 
   _createClass(Settings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var str = "this list contains these students: ";
+      this.props.selectedList.map(function (student) {
+        return str += student.name + ", ";
+      });
+
+      fetch("/api/getDate/0").then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return _this2.setState({ date: data });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
+      this.setState({ exists: false, added: false, listInfo: str });
+      fetch("/api/loadIds").then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return _this2.setState({ ids: data });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
+      this.setState({ selectedList: this.props.selectedList });
+    }
+  }, {
+    key: "changeHandler",
+    value: function changeHandler(event) {
+      this.setState({ value: event.target.value });
+    }
+  }, {
+    key: "nameHandler",
+    value: function nameHandler(event) {
+      this.setState({ exists: false, added: false });
+      this.setState({ name: event.target.value });
+    }
+  }, {
+    key: "submitHandler",
+    value: function submitHandler(event) {
+      this.setState({ exists: false, added: false });
+      event.preventDefault();
+
+      for (var key in this.state.ids) {
+        if (this.state.name == this.state.ids[key]) {
+          this.setState({ exists: true });
+          return;
+        }
+      }
+
+      var arr = this.state.value.split(",");
+
+      var list = [];
+
+      for (var i = 0; i < arr.length; i++) {
+        var tempObj = { name: arr[i], counters: {} };
+
+        for (var i2 = 0; i2 < arr.length; i2++) {
+          if (arr[i] != arr[i2]) tempObj.counters[arr[i2]] = 0;
+        }
+
+        list.push(tempObj);
+      }
+
+      var self = this;
+
+      fetch("/api/newList", {
+        method: "post",
+        body: JSON.stringify({ arr: list }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {});
+
+      fetch("/api/newId", {
+        method: "post",
+        body: JSON.stringify({ name: this.state.name }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        self.setState({ ids: data });
+      });
+
+      this.setState({ added: true });
+    }
+  }, {
+    key: "previewHandler",
+    value: function previewHandler(event) {
+      var _this3 = this;
+
+      var self = this;
+      var id = 0;
+      for (var key in this.state.ids) {
+        if (this.state.ids[key] == event.target.value) id = key;
+      }
+      this.setState({ selectedId: id });
+      fetch("/api/all/" + id).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        self.setState({ selectedList: data });
+        var str = "this list contains these students: ";
+        data.map(function (student) {
+          return str += student.name + ", ";
+        });
+        self.setState({ listInfo: str });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
+      fetch("/api/getDate/0").then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return _this3.setState({ date: data });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    }
+  }, {
+    key: "selectHandler",
+    value: function selectHandler(event) {
+      this.props.update(this.state.selectedList, this.state.selectedId);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
-          "h1",
-          null,
-          " coming soon "
+          "div",
+          { className: "select-profile" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            _react2.default.createElement(
+              "u",
+              null,
+              " Select a Profile"
+            )
+          ),
+          _react2.default.createElement(
+            "select",
+            { onChange: this.previewHandler },
+            Object.keys(this.state.ids).map(function (key) {
+              return _react2.default.createElement(
+                "option",
+                _defineProperty({ key: key, id: key }, "key", key),
+                _this4.state.ids[key]
+              );
+            })
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.selectHandler },
+            " select "
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            " ",
+            this.state.listInfo,
+            " "
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            " Date of last usage: ",
+            this.state.date,
+            " "
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "add-profile" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            _react2.default.createElement(
+              "u",
+              null,
+              " Add a Profile"
+            )
+          ),
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "p",
+              null,
+              "enter the list name with no spaces (has to be unique) "
+            ),
+            _react2.default.createElement("input", { value: this.state.name, onChange: this.nameHandler }),
+            _react2.default.createElement(
+              "p",
+              null,
+              " enter the students names separated by a comma. No need for spaces. ex: Sonic,Link,Peach,Tifa "
+            ),
+            _react2.default.createElement("input", { value: this.state.value, onChange: this.changeHandler }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "button",
+              { onClick: this.submitHandler },
+              " create a list of students "
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: this.state.exists ? "red" : "none" },
+              " list Name already exists "
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: this.state.added ? "green" : "none" },
+              " list added! "
+            )
+          )
         )
       );
     }

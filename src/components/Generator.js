@@ -77,13 +77,14 @@ class Generator extends React.Component {
       counter=counter*-1;
 
     })
-    console.log(results);
+   
     this.setState({pairs:results});
 
+    console.log("index",this.props.index )
 
 
     //// update api
-    fetch("/api/save", {
+    fetch(`/api/save/${this.props.index}`, {
       method: "post",
       body: JSON.stringify({ arr: all }),
       headers: {
@@ -94,7 +95,7 @@ class Generator extends React.Component {
         return response.json();
       })
       .then(function(data) {
-        console.log("sucess");
+        
       });
   }
 

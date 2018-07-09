@@ -3,13 +3,18 @@
 }
 
 body {
-  background: linear-gradient(110deg, #ccddff 60%, #00e6ac 60%);
+ 
+  /* background: linear-gradient(110deg, #ccddff 60%, #00e6ac 60%); */
+  background-color: black;
+  color: goldenrod;
   margin: 0;
   text-align: center;
   
 }
 
-
+.none{
+  display: none;
+}
 
 @font-face {
   font-family: 'sayno';
@@ -60,7 +65,8 @@ body {
 
 .title2{
   font-family: 'zero';
-  font-size: 30px
+  font-size: 30px;
+  
 }
 
 .header-nav{
@@ -69,21 +75,26 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #00e6ac;
+    background-color: rgb(88, 94, 38);
+    
 }
+
+
 
 .header-nav__list{
   
   font-size: 20px;
   display: inline-block;
-    color: white;
+    
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
+
+
 .results{
-  
+  font-family: 'press1';
   margin-bottom: 7px;
   margin-left: 10px;
   float: left;
@@ -93,8 +104,11 @@ body {
 .home-img{
   width: 75%;
   height: 55%;
+  
   position: relative;
   bottom: 50px;
+  
+  
 }
 
 .history-container{
@@ -107,15 +121,29 @@ flex-wrap: wrap;
 .history-container__box{
   padding: 10px;
   margin: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
+    
 
+}
+
+.select-profile{
+ width: 49%;
+ float: left;
+  
+ 
+}
+
+.add-profile{
+  width: 49%;
+ float: right;
+ border-left: solid 2px white;
 }
 
 
 
 .footer{
   position: fixed;
-  display: flex;
+  
   background-image: url("./images/footerr.jpg");
   left: 0;
   bottom: 0;
@@ -125,28 +153,65 @@ flex-wrap: wrap;
   background-repeat: no-repeat;
  background-size: 100% 100%;
 
+ 
+
 }
 
 .click-here{
   cursor: pointer;
   
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
 
   float: right;
 }
 
 
 
+.red-border{
+  border: 3px solid red;
+}
+
+.red{
+color: red;
+}
+.green{
+color: green;
+}
 
 
 
-@media(min-width: 700px){
+
+
+@media(min-width: 620px){
     
   .history-container{
     
     flex-direction: row;
     }
 
+    .click-here{
+      cursor: pointer;
+      
+      height: 200px;
+      width: 200px;
+    
+      position: fixed;
+      right: 10%;
+      bottom: 10%;
+    }
+
+    .results{
+      font-family: 'press1';
+      margin-bottom: 7px;
+      margin-left: 0px;
+      float: none;
+      text-align: center;
+    }
+
+    
+    
+
 
 }
+

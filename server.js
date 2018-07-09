@@ -6,9 +6,44 @@ app.use(bodyParser.json());
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs');
 //////////////////////////////////////////////////
+
+let dates={
+  0:"9/7/2018 at: 0:21:58"
+}
+
+
+function outerIds(){
+  let counter=2;
+  let ids={
+    0:"Cohort-2"
+  }
+
+  const innerIds= {
+
+  
+    getCounter(){
+      return counter;
+    },
+
+    getIds(){
+      
+      return ids;
+    },
+
+    saveIds(name){
+      
+      ids[counter]=name;
+      counter++;
+      return ids;
+    }
+  }
+  return innerIds;
+}
+
 function outerPairs ()
 {
 let all = [
+  [
   {name: "Ahmed", counters:{Alex:1, Edem:2, Ethan:2, Hamzah:3, Harry:2, James:1, Jose:3, Julius:3, Matt:1, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:2}},
 
   {name: "Alex", counters:{Ahmed:1, Edem:2, Ethan:1, Hamzah:1, Harry:1, James:2, Jose:3, Julius:1, Matt:0, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:1}},
@@ -40,18 +75,31 @@ let all = [
   {name: "Ralph", counters:{Alex:1, Edem:2, Ethan:1, Hamzah:1, Harry:2, James:2, Jose:2, Julius:1, Matt:1, mike:1, Ollie:1, Phoebe:2, Rafal:0, Ahmed:1, Sheila:2}},
   
   {name: "Sheila", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:1, Harry:1, James:1, Jose:1, Julius:2, Matt:2, mike:2, Ollie:1, Phoebe:3, Rafal:1, Ralph:2, Ahmed:2}}
-  
+  ]
   
   
 ];
 
 const innerPairs ={
-  load(){
+
+  all(){
     return all;
   },
-  save(newArr){
-    all=newArr;
-    return all;
+
+  load(i){
+    return all[i];
+  },
+  save(newArr,id){
+    let date = new Date();
+let fullDate=`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} at: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    dates[id]=fullDate;
+
+    all[id]=newArr;
+    return all[id];
+  },
+  add(newArr){
+    all.push(newArr);
+    return newArr;
   }
 
 }
@@ -62,15 +110,42 @@ return innerPairs;
 //////////////////////////////////////////////////
 
 const pairs=outerPairs();
+const ids=outerIds();
 
-app.get('/api/all', function(req,res){
-  res.json(pairs.load());
+app.get('/api/allLists', function(req,res){
+  res.json(pairs.all());
 })
 
-app.post('/api/save', function(req,res){
-
-  res.json(pairs.save(req.body.arr));
+app.get('/api/all/:id', function(req,res){
+  res.json(pairs.load(req.params.id));
 })
+
+app.post('/api/save/:id', function(req,res){
+
+  res.json(pairs.save(req.body.arr, req.params.id));
+})
+
+app.post('/api/newList', function(req,res){
+
+  res.json(pairs.add(req.body.arr));
+})
+
+app.get('/api/loadIds', function(req,res){
+  res.json(ids.getIds());
+})
+
+app.post('/api/newId', function(req,res){
+  res.json(ids.saveIds(req.body.name));
+})
+
+app.get('/api/getDates', function(req,res){
+  res.json(dates);
+})
+
+app.get('/api/getDate/:id', function(req,res){
+  res.json(dates[req.params.id]);
+})
+
 
 
 app.get('*', function(req, res){
