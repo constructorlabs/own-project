@@ -24554,7 +24554,8 @@ var Generator = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Generator.__proto__ || Object.getPrototypeOf(Generator)).call(this));
 
     _this.generatePairs = _this.generatePairs.bind(_this);
-    _this.state = { pairs: {} };
+    _this.state = { pairs: {}, generated: false };
+    _this.saveResults = _this.saveResults.bind(_this);
     return _this;
   }
 
@@ -24652,6 +24653,24 @@ var Generator = function (_React$Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {});
+
+      //update history api
+      fetch("/api/saveHistory", {
+        method: "post",
+        body: JSON.stringify(this.state.pairs),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {});
+
+      this.setState({ generated: true });
+    }
+  }, {
+    key: "saveResults",
+    value: function saveResults(event) {
+      this.setState({ generated: false });
     }
   }, {
     key: "render",
@@ -24661,7 +24680,8 @@ var Generator = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement("img", { className: "click-here", src: "./static/images/clickme.png", onClick: this.generatePairs }),
+        _react2.default.createElement("img", { className: "click-here", src: "./static/images/blueOne.png", onClick: this.generatePairs }),
+        _react2.default.createElement("img", { className: this.state.generated ? "save-button" : "none", src: "./static/images/greenOne.png", onClick: this.saveResults }),
         _react2.default.createElement(
           "div",
           { className: "results" },
@@ -25075,7 +25095,7 @@ var Settings = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
 
-    _this.state = { value: "", name: "", ids: {}, selectedId: 0, selectedList: [], exists: false, added: false, listInfo: "", date: "" };
+    _this.state = { value: "", name: "", ids: {}, selectedId: 0, selectedList: [], exists: false, added: false, listInfo: "", date: "", blankName: false };
     _this.changeHandler = _this.changeHandler.bind(_this);
     _this.submitHandler = _this.submitHandler.bind(_this);
     _this.previewHandler = _this.previewHandler.bind(_this);
@@ -25102,7 +25122,7 @@ var Settings = function (_React$Component) {
         return console.log(err);
       });
 
-      this.setState({ exists: false, added: false, listInfo: str });
+      this.setState({ exists: false, added: false, listInfo: str, blankName: false });
       fetch("/api/loadIds").then(function (response) {
         return response.json();
       }).then(function (data) {
@@ -25121,7 +25141,7 @@ var Settings = function (_React$Component) {
   }, {
     key: "nameHandler",
     value: function nameHandler(event) {
-      this.setState({ exists: false, added: false });
+      this.setState({ exists: false, added: false, blankName: false });
       this.setState({ name: event.target.value });
     }
   }, {
@@ -25129,6 +25149,10 @@ var Settings = function (_React$Component) {
     value: function submitHandler(event) {
       this.setState({ exists: false, added: false });
       event.preventDefault();
+      if (this.state.name == "") {
+        this.setState({ blankName: true });
+        return;
+      }
 
       for (var key in this.state.ids) {
         if (this.state.name == this.state.ids[key]) {
@@ -25285,7 +25309,8 @@ var Settings = function (_React$Component) {
               null,
               "enter the list name with no spaces (has to be unique) "
             ),
-            _react2.default.createElement("input", { value: this.state.name, onChange: this.nameHandler }),
+            _react2.default.createElement("input", { value: this.state.name, onChange: this.nameHandler,
+              className: this.state.exists || this.state.blankName ? "red-border" : "" }),
             _react2.default.createElement(
               "p",
               null,
@@ -25307,6 +25332,11 @@ var Settings = function (_React$Component) {
               "p",
               { className: this.state.added ? "green" : "none" },
               " list added! "
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: this.state.blankName ? "red" : "none" },
+              " list Name cant be blank "
             )
           )
         )

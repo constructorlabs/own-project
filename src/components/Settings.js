@@ -4,7 +4,7 @@ import cx from 'classnames';
 class Settings extends React.Component {
   constructor() {
     super();
-    this.state = { value: "", name:"", ids:{}, selectedId:0, selectedList:[], exists:false, added:false, listInfo:"",date:"" };
+    this.state = { value: "", name:"", ids:{}, selectedId:0, selectedList:[], exists:false, added:false, listInfo:"",date:"",blankName:false };
     this.changeHandler = this.changeHandler.bind(this);
     this.submitHandler=this.submitHandler.bind(this);
     this.previewHandler=this.previewHandler.bind(this);
@@ -28,7 +28,7 @@ class Settings extends React.Component {
 
         
 
-    this.setState({exists:false, added:false,listInfo:str})
+    this.setState({exists:false, added:false,listInfo:str,blankName:false})
     fetch(
       `/api/loadIds`
     )
@@ -45,13 +45,17 @@ class Settings extends React.Component {
   }
 
   nameHandler(event){
-    this.setState({exists:false, added:false})
+    this.setState({exists:false, added:false,blankName:false})
     this.setState({ name: event.target.value });
   }
 
   submitHandler(event) {
     this.setState({exists:false, added:false})
     event.preventDefault();
+    if(this.state.name==""){
+      this.setState({blankName:true});
+      return;
+    }
 
     for (let key in this.state.ids){
       if(this.state.name ==this.state.ids[key]){
@@ -179,13 +183,15 @@ class Settings extends React.Component {
           </h2>
           <form>
             <p>enter the list name with no spaces (has to be unique) </p>
-            <input value={this.state.name} onChange={this.nameHandler} />
+            <input value={this.state.name} onChange={this.nameHandler} 
+            className={this.state.exists || this.state.blankName ? "red-border" : ""} />
             <p> enter the students names separated by a comma. No need for spaces. ex: Sonic,Link,Peach,Tifa </p>
             <input value={this.state.value} onChange={this.changeHandler} />
             <br/>
             <button onClick={this.submitHandler}> create a list of students </button>
             <p className={this.state.exists ? "red" : "none"}> list Name already exists </p>
             <p className={this.state.added ? "green" : "none"} > list added! </p>
+            <p className={this.state.blankName ? "red" : "none"}> list Name cant be blank </p>
           </form>
         </div>
       </div>

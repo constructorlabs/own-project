@@ -4,7 +4,8 @@ class Generator extends React.Component {
   constructor() {
     super();
     this.generatePairs = this.generatePairs.bind(this);
-    this.state={pairs:{}};
+    this.state={pairs:{},generated:false};
+    this.saveResults=this.saveResults.bind(this)
   }
 
   generatePairs(event) {
@@ -97,13 +98,38 @@ class Generator extends React.Component {
       .then(function(data) {
         
       });
+
+
+      //update history api
+      fetch(`/api/saveHistory`, {
+        method: "post",
+        body: JSON.stringify( this.state.pairs ),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          
+        });
+
+
+        this.setState({generated:true})
+
+  }
+
+  saveResults(event){
+    this.setState({generated:false})
   }
 
   render() {
     return (
       <div>
         
-        <img className="click-here" src="./static/images/clickme.png" onClick={this.generatePairs} />
+        <img className="click-here" src="./static/images/blueOne.png" onClick={this.generatePairs} />
+        <img className={this.state.generated ? "save-button" : "none"} src="./static/images/greenOne.png" onClick={this.saveResults}  />
         
 
       <div className="results">
