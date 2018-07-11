@@ -57,6 +57,7 @@ class Generator extends React.Component {
       }
     });
 
+    
     this.props.receiver(all);
 
 
@@ -126,7 +127,7 @@ class Generator extends React.Component {
 
   render() {
     return (
-      <div class="generator">
+      <div className="generator">
         
         <img className="click-here" src="./static/images/blueOne.png" onClick={this.generatePairs} />
         <img className={this.state.generated ? "save-button" : "none"} src="./static/images/greenOne.png" onClick={this.saveResults}  />
