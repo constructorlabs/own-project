@@ -24537,8 +24537,6 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -24554,7 +24552,7 @@ var Generator = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Generator.__proto__ || Object.getPrototypeOf(Generator)).call(this));
 
     _this.generatePairs = _this.generatePairs.bind(_this);
-    _this.state = { pairs: {}, generated: false };
+    _this.state = { pairs: {}, generated: false, currentAll: [] };
     _this.saveResults = _this.saveResults.bind(_this);
     return _this;
   }
@@ -24563,19 +24561,20 @@ var Generator = function (_React$Component) {
     key: "generatePairs",
     value: function generatePairs(event) {
       var shuffle = __webpack_require__(/*! shuffle-array */ "./node_modules/shuffle-array/index.js");
-      var all = [].concat(_toConsumableArray(this.props.all));
+      var all = JSON.parse(JSON.stringify(this.props.all));
+
       shuffle(all);
 
       var pairs = [];
 
       ///// loop through the students /////
-      all.forEach(function (student) {
+      all.forEach(function (student, i) {
         //// cheack if student already paired ////
         var search = pairs.find(function (item) {
-          return student.name == item;
+          return student.name === item;
         });
 
-        if (search == student.name) {} else {
+        if (search === student.name) {} else {
           var min = 999;
           var currentPair = "";
 
@@ -24584,10 +24583,11 @@ var Generator = function (_React$Component) {
 
           var _loop = function _loop(_pair) {
             var newPair = pairs.find(function (student) {
-              return student == _pair;
+              return student === _pair;
             });
-            if (_pair == newPair) {} else {
+            if (_pair === newPair) {} else {
               if (min > student.counters[_pair]) {
+
                 min = student.counters[_pair];
                 currentPair = _pair;
               }
@@ -24600,7 +24600,9 @@ var Generator = function (_React$Component) {
 
           ///// increment counter for current student. ///
           if (currentPair != "") {
-            student.counters[currentPair]++;
+            console.log("before", student.counters[currentPair]);
+            all[i].counters[currentPair]++;
+            console.log("after", student.counters[currentPair]);
           } else {}
 
           //// chosen students to Pairs array ////
@@ -24608,15 +24610,17 @@ var Generator = function (_React$Component) {
           pairs.push(currentPair);
 
           /// increament counter for the chosen pair ////
-          all.forEach(function (paired) {
+          all.forEach(function (paired, i2) {
             if (paired.name == currentPair) {
-              paired.counters[student.name]++;
+
+              all[i2].counters[student.name]++;
             }
           });
         }
       });
 
-      this.props.receiver(all);
+      console.log(all);
+      this.setState({ currentAll: JSON.parse(JSON.stringify(all)) });
 
       ///////// create a results object
       var id = 1,
@@ -24641,12 +24645,19 @@ var Generator = function (_React$Component) {
 
       this.setState({ pairs: results });
 
-      console.log("index", this.props.index);
+      this.setState({ generated: true });
+    }
+  }, {
+    key: "saveResults",
+    value: function saveResults(event) {
+
+      this.props.receiver(this.state.currentAll);
+      console.log(this.state.currentAll);
 
       //// update api
       fetch("/api/save/" + this.props.index, {
         method: "post",
-        body: JSON.stringify({ arr: all }),
+        body: JSON.stringify({ arr: this.state.currentAll }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -24665,11 +24676,6 @@ var Generator = function (_React$Component) {
         return response.json();
       }).then(function (data) {});
 
-      this.setState({ generated: true });
-    }
-  }, {
-    key: "saveResults",
-    value: function saveResults(event) {
       this.setState({ generated: false });
     }
   }, {
@@ -24679,7 +24685,7 @@ var Generator = function (_React$Component) {
 
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "generator" },
         _react2.default.createElement("img", { className: "click-here", src: "./static/images/blueOne.png", onClick: this.generatePairs }),
         _react2.default.createElement("img", { className: this.state.generated ? "save-button" : "none", src: "./static/images/greenOne.png", onClick: this.saveResults }),
         _react2.default.createElement(

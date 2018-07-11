@@ -126,7 +126,7 @@ class Generator extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="generator">
         
         <img className="click-here" src="./static/images/blueOne.png" onClick={this.generatePairs} />
         <img className={this.state.generated ? "save-button" : "none"} src="./static/images/greenOne.png" onClick={this.saveResults}  />
