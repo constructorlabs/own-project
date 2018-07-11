@@ -48,13 +48,13 @@ let all = [
   [
   {name: "Ahmed", counters:{Alex:2, Edem:2, Ethan:2, Hamzah:3, Harry:2, James:2, Jose:4, Julius:3, Matt:1, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:2}},
 
-  {name: "Alex", counters:{Ahmed:2, Edem:2, Ethan:1, Hamzah:1, Harry:1, James:2, Jose:4, Julius:1, Matt:2, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:2, Sheila:1}},
+  {name: "Alex", counters:{Ahmed:2, Edem:2, Ethan:1, Hamzah:7, Harry:1, James:2, Jose:4, Julius:1, Matt:2, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:2, Sheila:1}},
   
-  {name: "Edem", counters:{Alex:2, Ahmed:2, Ethan:3, Hamzah:2, Harry:0, James:2, Jose:1, Julius:2, Matt:0, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:1}},
+  {name: "Edem", counters:{Alex:2, Ahmed:2, Ethan:3, Hamzah:6, Harry:0, James:2, Jose:1, Julius:2, Matt:0, mike:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:1}},
   
   {name: "Ethan", counters:{Alex:1, Edem:3, Ahmed:2, Hamzah:0, Harry:1, James:2, Jose:2, Julius:2, Matt:1, mike:1, Ollie:1, Phoebe:1, Rafal:1, Ralph:2, Sheila:1}},
   
-  {name: "Hamzah", counters:{Alex:1, Edem:2, Ethan:0, Ahmed:3, Harry:1, James:2, Jose:1, Julius:1, Matt:3, mike:1, Ollie:1, Phoebe:8, Rafal:1, Ralph:1, Sheila:1}},
+  {name: "Hamzah", counters:{Alex:7, Edem:6, Ethan:0, Ahmed:3, Harry:1, James:2, Jose:1, Julius:1, Matt:3, mike:1, Ollie:1, Phoebe:8, Rafal:1, Ralph:1, Sheila:1}},
   
   {name: "Harry", counters:{Alex:1, Edem:0, Ethan:1, Hamzah:1, Ahmed:2, James:2, Jose:2, Julius:1, Matt:2, mike:1, Ollie:2, Phoebe:3, Rafal:1, Ralph:2, Sheila:0}},
   

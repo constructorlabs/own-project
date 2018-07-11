@@ -24616,6 +24616,8 @@ var Generator = function (_React$Component) {
         }
       });
 
+      console.log(all);
+
       this.props.receiver(all);
 
       ///////// create a results object

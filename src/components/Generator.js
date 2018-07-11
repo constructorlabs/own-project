@@ -57,6 +57,7 @@ class Generator extends React.Component {
       }
     });
 
+    console.log(all)
     
     this.props.receiver(all);
 
