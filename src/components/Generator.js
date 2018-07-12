@@ -4,92 +4,95 @@ class Generator extends React.Component {
   constructor() {
     super();
     this.generatePairs = this.generatePairs.bind(this);
-    this.state={pairs:{},generated:false};
+    this.state={pairs:{},generated:false, tempAll:[]};
     this.saveResults=this.saveResults.bind(this)
   }
 
   generatePairs(event) {
     let shuffle = require("shuffle-array");
-    let all = [...this.props.all];
+    let all = JSON.parse(JSON.stringify(this.props.all));
     shuffle(all);
-
+    
     let pairs = [];
 
-    ///// loop through the students /////
-    all.forEach(student => {
+    for(let outer=0;outer<all.length;outer++){
+
       //// cheack if student already paired ////
-      let search = pairs.find(item => student.name == item);
+      if(pairs.indexOf(all[outer].name)<0){
 
-      if (search == student.name) {
-      } else {
-        let min = 999;
-        let currentPair = "";
+        let min=999;
+        let currentPair;
+        for(let choice in all[outer].counters){
+          //check if the choice has already paired
+          if(pairs.indexOf(choice)<0){
 
-        /////// find the pair with least counter //////
-        // to add: search for already existing student in pairs
-        for (let pair in student.counters) {
-          let newPair = pairs.find(student => student == pair);
-          if (pair == newPair) {
-          } else {
-            if (min > student.counters[pair]) {
-              min = student.counters[pair];
-              currentPair = pair;
+
+            //find pair with less counters
+          if(all[outer].counters[choice] < min){
+            currentPair=choice;
+            min= all[outer].counters[choice]
+            
+          }
+        }
+        }
+        
+        if(currentPair){
+
+
+          //update counters
+          all[outer].counters[currentPair]++;
+          for(let inner=0; inner<all.length;inner++){
+            if(all[inner].name === currentPair){
+              all[inner].counters[all[outer].name]++
             }
           }
+     
+        //update pairs array
+        pairs.push(all[outer].name)
+        pairs.push(currentPair)
         }
-
-        ///// increment counter for current student. ///
-        if (currentPair != "") {
-          student.counters[currentPair]++;
-        } else {
-        }
-
-        //// chosen students to Pairs array ////
-        pairs.push(student.name);
-        pairs.push(currentPair);
-
-        /// increament counter for the chosen pair ////
-        all.forEach(paired => {
-          if (paired.name == currentPair) {
-            paired.counters[student.name]++;
-          }
-        });
+        
       }
-    });
+      
 
-    console.log(all)
+    }
     
-    this.props.receiver(all);
 
 
 ///////// create a results object
     let id=1, results={}, counter=1, pair={}, tempStudent="", pairName="";
-    all.forEach(student=>{
+    pairs.forEach(student=>{
 
       if(counter==-1){
         pairName=`Pair${id}`;
         id++;
-        pair={name1: tempStudent, name2: student.name};
+        pair={name1: tempStudent, name2: student};
         results[pairName]=pair;
 
       }
       else{
-        tempStudent=student.name
+        tempStudent=student
       }
 
       counter=counter*-1;
 
     })
+
+    
    
-    this.setState({pairs:results});
+    this.setState({pairs:results,generated:true,tempAll:all});
 
-    console.log("index",this.props.index )
+  }
 
+  saveResults(event){
+    this.setState({generated:false})
+    
+    this.props.receiver(this.state.tempAll)
 
     //// update api
     fetch(`/api/save/${this.props.index}`, {
       method: "post",
-      body: JSON.stringify({ arr: all }),
+      body: JSON.stringify({ arr: this.state.tempAll }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -102,28 +105,21 @@ class Generator extends React.Component {
       });
 
 
-      //update history api
-      fetch(`/api/saveHistory`, {
-        method: "post",
-        body: JSON.stringify( this.state.pairs ),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          
-        });
 
-
-        this.setState({generated:true})
-
-  }
-
-  saveResults(event){
-    this.setState({generated:false})
+          //update history api
+          fetch(`/api/saveHistory`, {
+            method: "post",
+            body: JSON.stringify( this.state.pairs ),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+              
+            });
   }
 
   render() {

@@ -5,15 +5,29 @@
 body {
  
   /* background: linear-gradient(110deg, #ccddff 60%, #00e6ac 60%); */
-  background-image: url("./images/nes.gif");
+  /* background-image: url("./images/nes.gif"); */
   background-repeat: no-repeat;
   background-size: 100%;
   background-color: black;
   color: goldenrod;
   margin: 0;
   text-align: center;
-  
+
+
+  animation: myanimation 10s infinite;
+
 }
+
+
+@keyframes myanimation {
+  0% {background-image: url("./images/nes.gif");}
+  25% {background-image: url("./images/nes.gif");}
+  50%{background-image: url("./images/nes.gif")}
+  75%{background-image: url("./images/pacman.gif")}
+  100%{background-image: url("./images/pacman.gif")}
+}
+
+  
 
 .none{
   display: none;

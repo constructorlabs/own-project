@@ -24537,8 +24537,6 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -24554,7 +24552,7 @@ var Generator = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Generator.__proto__ || Object.getPrototypeOf(Generator)).call(this));
 
     _this.generatePairs = _this.generatePairs.bind(_this);
-    _this.state = { pairs: {}, generated: false };
+    _this.state = { pairs: {}, generated: false, tempAll: [] };
     _this.saveResults = _this.saveResults.bind(_this);
     return _this;
   }
@@ -24563,62 +24561,46 @@ var Generator = function (_React$Component) {
     key: "generatePairs",
     value: function generatePairs(event) {
       var shuffle = __webpack_require__(/*! shuffle-array */ "./node_modules/shuffle-array/index.js");
-      var all = [].concat(_toConsumableArray(this.props.all));
+      var all = JSON.parse(JSON.stringify(this.props.all));
       shuffle(all);
 
       var pairs = [];
 
-      ///// loop through the students /////
-      all.forEach(function (student) {
+      for (var outer = 0; outer < all.length; outer++) {
+
         //// cheack if student already paired ////
-        var search = pairs.find(function (item) {
-          return student.name == item;
-        });
+        if (pairs.indexOf(all[outer].name) < 0) {
 
-        if (search == student.name) {} else {
           var min = 999;
-          var currentPair = "";
+          var currentPair = void 0;
+          for (var choice in all[outer].counters) {
+            //check if the choice has already paired
+            if (pairs.indexOf(choice) < 0) {
 
-          /////// find the pair with least counter //////
-          // to add: search for already existing student in pairs
-
-          var _loop = function _loop(_pair) {
-            var newPair = pairs.find(function (student) {
-              return student == _pair;
-            });
-            if (_pair == newPair) {} else {
-              if (min > student.counters[_pair]) {
-                min = student.counters[_pair];
-                currentPair = _pair;
+              //find pair with less counters
+              if (all[outer].counters[choice] < min) {
+                currentPair = choice;
+                min = all[outer].counters[choice];
               }
             }
-          };
-
-          for (var _pair in student.counters) {
-            _loop(_pair);
           }
 
-          ///// increment counter for current student. ///
-          if (currentPair != "") {
-            student.counters[currentPair]++;
-          } else {}
+          if (currentPair) {
 
-          //// chosen students to Pairs array ////
-          pairs.push(student.name);
-          pairs.push(currentPair);
-
-          /// increament counter for the chosen pair ////
-          all.forEach(function (paired) {
-            if (paired.name == currentPair) {
-              paired.counters[student.name]++;
+            //update counters
+            all[outer].counters[currentPair]++;
+            for (var inner = 0; inner < all.length; inner++) {
+              if (all[inner].name === currentPair) {
+                all[inner].counters[all[outer].name]++;
+              }
             }
-          });
+
+            //update pairs array
+            pairs.push(all[outer].name);
+            pairs.push(currentPair);
+          }
         }
-      });
-
-      console.log(all);
-
-      this.props.receiver(all);
+      }
 
       ///////// create a results object
       var id = 1,
@@ -24627,28 +24609,33 @@ var Generator = function (_React$Component) {
           pair = {},
           tempStudent = "",
           pairName = "";
-      all.forEach(function (student) {
+      pairs.forEach(function (student) {
 
         if (counter == -1) {
           pairName = "Pair" + id;
           id++;
-          pair = { name1: tempStudent, name2: student.name };
+          pair = { name1: tempStudent, name2: student };
           results[pairName] = pair;
         } else {
-          tempStudent = student.name;
+          tempStudent = student;
         }
 
         counter = counter * -1;
       });
 
-      this.setState({ pairs: results });
+      this.setState({ pairs: results, generated: true, tempAll: all });
+    }
+  }, {
+    key: "saveResults",
+    value: function saveResults(event) {
+      this.setState({ generated: false });
 
-      console.log("index", this.props.index);
+      this.props.receiver(this.state.tempAll);
 
       //// update api
       fetch("/api/save/" + this.props.index, {
         method: "post",
-        body: JSON.stringify({ arr: all }),
+        body: JSON.stringify({ arr: this.state.tempAll }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -24666,13 +24653,6 @@ var Generator = function (_React$Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {});
-
-      this.setState({ generated: true });
-    }
-  }, {
-    key: "saveResults",
-    value: function saveResults(event) {
-      this.setState({ generated: false });
     }
   }, {
     key: "render",
