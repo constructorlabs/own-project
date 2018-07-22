@@ -14,7 +14,7 @@ body {
   text-align: center;
 
 
-  animation: myanimation 10s infinite;
+  animation: colors 10s infinite;
 
 }
 
@@ -28,6 +28,17 @@ body {
   100%{background-image: url("./images/pacman.gif")}
  
 }
+
+@keyframes colors {
+  0% {background-color: red}
+  25% {background-color: green}
+  50% {background-color: blue}
+  75% {background-color: aqua}
+  100% {background-color: lawngreen}
+ 
+}
+
+
 
   
 

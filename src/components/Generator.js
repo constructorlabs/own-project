@@ -12,7 +12,7 @@ class Generator extends React.Component {
     let shuffle = require("shuffle-array");
     let all = JSON.parse(JSON.stringify(this.props.all));
     shuffle(all);
-    
+
     let pairs = [];
 
     for(let outer=0;outer<all.length;outer++){
@@ -31,11 +31,11 @@ class Generator extends React.Component {
           if(all[outer].counters[choice] < min){
             currentPair=choice;
             min= all[outer].counters[choice]
-            
+
           }
         }
         }
-        
+
         if(currentPair){
 
 
@@ -46,17 +46,17 @@ class Generator extends React.Component {
               all[inner].counters[all[outer].name]++
             }
           }
-     
+
         //update pairs array
         pairs.push(all[outer].name)
         pairs.push(currentPair)
         }
-        
+
       }
-      
+
 
     }
-    
+
 
 
 ///////// create a results object
@@ -78,15 +78,15 @@ class Generator extends React.Component {
 
     })
 
-    
-   
+
+
     this.setState({pairs:results,generated:true,tempAll:all});
 
   }
 
   saveResults(event){
     this.setState({generated:false})
-    
+
     this.props.receiver(this.state.tempAll)
 
     //// update api
@@ -101,7 +101,7 @@ class Generator extends React.Component {
         return response.json();
       })
       .then(function(data) {
-        
+
       });
 
 
@@ -118,20 +118,20 @@ class Generator extends React.Component {
               return response.json();
             })
             .then(function(data) {
-              
+
             });
   }
 
   render() {
     return (
       <div className="generator">
-        
+
         <img className="click-here" src="./static/images/blueOne.png" onClick={this.generatePairs} />
         <img className={this.state.generated ? "save-button" : "none"} src="./static/images/greenOne.png" onClick={this.saveResults}  />
-        
+
 
       <div className="results">
-      
+
       {Object.keys(this.state.pairs).map(key=>{
         return(
           <h2 key={key}> {this.state.pairs[key].name1} & {this.state.pairs[key].name2} </h2>
@@ -143,7 +143,7 @@ class Generator extends React.Component {
 
       </div>
 
-      
+
     );
   }
 }
