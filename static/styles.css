@@ -30,11 +30,11 @@ body {
 }
 
 @keyframes colors {
-  0% {background-color: red}
-  25% {background-color: green}
-  50% {background-color: blue}
-  75% {background-color: aqua}
-  100% {background-color: lawngreen}
+  0% {background-color: black}
+  25% {background-color: blue}
+  50% {background-color: black}
+  75% {background-color: blue}
+  100% {background-color: black}
  
 }
 

@@ -46,7 +46,7 @@ function outerPairs ()
 {
 let all = [
   [
-  {name: "Ahmed", counters:{Alex:2, Edem:2, Ethan:2, Hamzah:3, Harry:2, James:2, Jose:4, Julius:3, Matt:1, Michael:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:1, Sheila:2}},
+  {name: "Ahmed", counters:{Alex:2, Edem:2, Ethan:2, Hamzah:3, Harry:2, James:2, Jose:4, Julius:3, Matt:1, Michael:1, Ollie:2, Phoebe:3, Rafal:3, Ralph:1, Sheila:2}},
 
   {name: "Alex", counters:{Ahmed:2, Edem:2, Ethan:1, Hamzah:5, Harry:1, James:2, Jose:4, Julius:1, Matt:2, Michael:1, Ollie:2, Phoebe:1, Rafal:3, Ralph:2, Sheila:1}},
   
@@ -70,7 +70,7 @@ let all = [
   
   {name: "Ollie", counters:{Alex:2, Edem:2, Ethan:1, Hamzah:1, Harry:2, James:1, Jose:1, Julius:2, Matt:1, Michael:1, Ahmed:2, Phoebe:2, Rafal:2, Ralph:1, Sheila:2}},
   
-  {name: "Phoebe", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:3, Harry:2, James:2, Jose:3, Julius:2, Matt:3, Michael:2, Ollie:2, Ahmed:1, Rafal:1, Ralph:2, Sheila:3}},
+  {name: "Phoebe", counters:{Alex:1, Edem:1, Ethan:1, Hamzah:3, Harry:2, James:2, Jose:3, Julius:2, Matt:3, Michael:2, Ollie:2, Ahmed:3, Rafal:1, Ralph:2, Sheila:3}},
   
   {name: "Rafal", counters:{Alex:3, Edem:3, Ethan:1, Hamzah:1, Harry:1, James:2, Jose:1, Julius:1, Matt:1, Michael:1, Ollie:2, Phoebe:1, Ahmed:3, Ralph:0, Sheila:1}},
   
