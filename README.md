@@ -1,32 +1,22 @@
-# Your own project
+# My own project - Low fare flight search
 
-Build an app of your choice.
+- Using external API [https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=yCrg1AtzcO3WOHM31Sq1Qd3iuOsiCSbR&origin=BOS&destination=LON&departure_date=2018-08-01&return_date=2018-08-10&adults=1&max_price=1000&currency=USD] created a simple flight finder app.
 
-- You are free to use any technologies covered so far. You are welcome to try new technologies you find interesting.
-- Keep it simple. Aim to get the basic functionality working on day one. You can then extend it on days two and three.
-- Feel free to use an external API to provide additional functionality to your app. Avoid APIs that use complex authentication mechanisms.
-- Use pen and paper to draw a diagram of the webpage layout before starting to code. Have a think about what components you will need in advance.
-- Think about how to organise your data in advance
-- Make sure your app is responsive
-- Commit frequently
-- Create pull request at the end
-- Keep it simple
+- Used external API with 8 query parameters: origin, destination, departure_date, return_date, adults, children, max_price and currency.
+- It was intended to create a flexible flight finder that can be used to answer questions such as "Where can I go within given travel budget?".
+- Used grid to get the basic layout of search and flight details elements.
+- Used validate function to check user's input in the form
+- Application has been created using React.js, node.js and express.js.
+- Application has a basic responsive design.
 
-## Technical notes
+# Use
 
-* Run `npm install` after cloning to download all dependencies
-* Use `npm run dev -- --watch` to build React
-* Use `node server.js` to run the Node server in another tab
-* You can view the site at [http://localhost:8080](http://localhost:8080)
-* If you would like to user `nodemon` to automatically rebuild your server, run `npm run server`
-* The node server file is `/server.js`
-* The index home page is in `/views/index.hbs`
-* Place all static files such as images and CSS in the `static` folder.
+- Fill in all input fields with format provided and hit search
 
-## README
+# Strech goals - possible extensions
 
-* Produce a README.md which explains
-  * what the project does
-  * what technologies it uses
-  * how to build it and run it
-  * any unresolved issues the user should be aware of
+- Add hotel top picks for a given destination using another fetch.
+- Add a database to server that will allow IATA codes (3 letter airport names) to be transformed into full city names (or a similar functionality).
+- Embed a video inside flight info element(currently animated gif).
+- Enable users to buy tickets - redirect them to the correct address.
+- Add social media buttons

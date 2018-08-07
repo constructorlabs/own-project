@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "webpack --mode development",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "server": "nodemon server.js -w server -i server/static"
   },
@@ -18,7 +18,10 @@
     ]
   },
   "dependencies": {
+    "airlines-iata-codes": "^1.0.1",
+    "airport-codes": "^1.0.2",
     "body-parser": "^1.18.3",
+    "date-fns": "^1.29.0",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
     "jest": "^22.3.0",
