@@ -17,14 +17,20 @@
       "babel-preset-env"
     ]
   },
+  "engines": {
+    "node": "10.4.1"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
     "jest": "^22.3.0",
     "node-fetch": "^2.1.2",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.3.1",
+    "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
     "babel-jest": "^22.4.1",
